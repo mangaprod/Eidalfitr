@@ -87,7 +87,7 @@
         const newTab = window.open();
         if (newTab) {
           newTab.document.write('<img src="' + dataUrl + '" alt="Eid Greeting Card" style="max-width:100%">');
-          newTab.document.write('<p>Press and hold on the image to save to your photo gallery</p>');
+          newTab.document.write('<p style="font-weight: bold; font-size: 20px; font-family: \'Cairo\', sans-serif;">Press and hold on the image to save to your photo gallery</p>');
           newTab.document.title = "Save your Eid card";
         } else {
           alert("Please enable pop-ups to save your card or take a screenshot");
