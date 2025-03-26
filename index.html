@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eid Greeting Card</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: 'Cairo', sans-serif;
+      background-color: #f8f8f8;
+      padding: 20px;
+    }
+    canvas {
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+      max-width: 100%;
+    }
+    input {
+      font-size: 18px;
+      padding: 10px;
+      margin-bottom: 10px;
+      width: 300px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <canvas id="cardCanvas" width="1000" height="688"></canvas><br>
+  <input type="text" id="nameInput" placeholder="اكتب اسمك هنا (Enter your name)" oninput="updateCard()" dir="rtl">
+  <br>
+  <button onclick="downloadCard()">📥 Download Card</button>
+
+  <script>
+    const canvas = document.getElementById("cardCanvas");
+    const ctx = canvas.getContext("2d");
+    const img = new Image();
+    
+    // Add error handling for image loading
+    img.onerror = function() {
+      console.error("Error loading image");
+      alert("Error loading the greeting card image. Please make sure 'Eid 2025 BG.jpg' is in the same directory.");
+    };
+    
+    img.src = "Eid 2025 BG.jpg"; // Your card image
+
+    img.onload = () => {
+      drawCard();
+    };
+
+    function drawCard(name = "") {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      
+      if (name) {
+        ctx.font = "bold 30px 'Cairo', sans-serif"; // Bold text
+        ctx.fillStyle = "#372729"; // Dark text color
+        ctx.textAlign = "center";
+        ctx.direction = "rtl";
+        ctx.fillText(name, canvas.width / 2, canvas.height - 120); // Move text up by 10px
+      }
+    }
+
+    function updateCard() {
+      const name = document.getElementById("nameInput").value;
+      drawCard(name);
+    }
+
+    function downloadCard() {
+      const link = document.createElement("a");
+      link.download = "eid_greeting.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    }
+  </script>
+
+</body>
+</html>
